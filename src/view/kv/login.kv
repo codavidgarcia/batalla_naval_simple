@@ -1,0 +1,81 @@
+# Archivo KV para la pantalla de inicio de sesión
+# Autor: Juan David
+
+# Hola Jona: Este archivo define la interfaz gráfica de la pantalla de inicio de sesión.
+# Aquí definimos cómo se ve la pantalla y qué ocurre cuando el usuario
+# interactúa con los elementos (por ejemplo, al hacer clic en un botón).
+
+<LoginScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 15
+
+        # Título de la pantalla
+        Label:
+            text: "INICIAR SESIÓN"
+            font_size: 28
+            bold: True
+            size_hint_y: 0.2
+
+        # Formulario de inicio de sesión
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: 0.6
+            spacing: 10
+            padding: [50, 0]
+
+            # Campo de nombre de usuario
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 0.2
+                spacing: 10
+
+                Label:
+                    text: "Nombre de usuario:"
+                    size_hint_x: 0.4
+                    halign: "right"
+                    text_size: self.size
+
+                TextInput:
+                    id: usuario_input
+                    hint_text: "Ingrese su nombre de usuario"
+                    multiline: False
+                    size_hint_x: 0.6
+
+            # Campo de contraseña
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: 0.2
+                spacing: 10
+
+                Label:
+                    text: "Contraseña:"
+                    size_hint_x: 0.4
+                    halign: "right"
+                    text_size: self.size
+
+                TextInput:
+                    id: contraseña_input
+                    hint_text: "Ingrese su contraseña"
+                    password: True
+                    multiline: False
+                    size_hint_x: 0.6
+
+            # Mensaje para el usuario
+            Label:
+                text: root.mensaje
+                size_hint_y: 0.2
+                color: (0, 1, 0, 1) if "✅" in self.text else (1, 0, 0, 1)
+
+            # Botón de inicio de sesión
+            Button:
+                text: "Iniciar Sesión"
+                size_hint_y: 0.2
+                on_release: root.iniciar_sesion()
+
+        # Botón para volver al menú
+        Button:
+            text: "Volver al Menú"
+            size_hint_y: 0.1
+            on_release: root.volver()
