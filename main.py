@@ -3,7 +3,6 @@ Archivo principal del juego Batalla Naval simplificado.
 
 Este archivo inicia la aplicación Kivy y configura las pantallas del juego.
 
-Autor: Juan David
 """
 
 from kivy.app import App
@@ -47,11 +46,4 @@ class BatallaNavalApp(App):
         return sm
 
 if __name__ == "__main__":
-    """
-    Punto de entrada principal del programa.
-
-    Hola Jona: Esta condición verifica si este archivo se está ejecutando
-    directamente (no importado como módulo). Si es así, creamos una instancia
-    de la aplicación y la ejecutamos con el método run().
-    """
     BatallaNavalApp().run()
