@@ -46,41 +46,29 @@ El proyecto sigue una arquitectura MVC clara:
 ## Instalación
 
 1. Clona este repositorio:
-   ```bash
    git clone https://github.com/tu-usuario/batalla-naval-simple.git
    cd batalla-naval-simple
-   ```
 
 2. Instala las dependencias:
-   ```bash
    pip install -r requirements.txt
-   ```
 
 ## Ejecución
 
 ### Interfaz Gráfica
 
 Para ejecutar el juego con interfaz gráfica:
-
-```bash
 python main.py
-```
+
 
 ### Línea de Comandos (CLI)
 
 Para ejecutar el juego desde la línea de comandos:
-
-```bash
 python cli.py
-```
 
 ## Pruebas
 
 Para ejecutar todas las pruebas unitarias:
-
-```bash
 python run_tests.py
-```
 
 ## Base de Datos
 
