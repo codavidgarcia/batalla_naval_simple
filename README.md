@@ -11,18 +11,35 @@ Un juego de Batalla Naval implementado en Python con Kivy y PostgreSQL.
 
 ## Configuración de la Base de Datos PostgreSQL
 
-1. Instalar PostgreSQL y pgAdmin 4
-2. Crear un usuario y una base de datos en PostgreSQL:
+1. Instalar PostgreSQL y pgAdmin 4:
+   - En sistemas basados en Debian/Ubuntu: `sudo apt install postgresql postgresql-contrib`
+   - En macOS con Homebrew: `brew install postgresql`
+   - Descargar pgAdmin 4 desde [pgadmin.org](https://www.pgadmin.org/download/)
+
+2. Instalar las dependencias de Python:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Ejecutar el script de configuración:
+
+```bash
+./configurar_postgres.sh
+```
+
+O configurar manualmente:
 
 ```sql
 CREATE USER batalla_naval WITH PASSWORD 'password123';
 CREATE DATABASE batalla_naval OWNER batalla_naval;
 ```
 
-3. Ejecutar el script de configuración:
+Y luego:
 
 ```bash
-python setup_postgres.py
+PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sql/postgres_schema.sql
+PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sql/postgres_data.sql
 ```
 
 ## Uso de pgAdmin 4 con la Base de Datos
