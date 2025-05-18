@@ -1,66 +1,15 @@
-"""
-Versión de línea de comandos (CLI) del juego Batalla Naval.
-
-Este archivo proporciona una interfaz de línea de comandos para jugar
-al juego Batalla Naval sin necesidad de una interfaz gráfica.
-
-Autor: Juan David
-"""
-
 import os
 import sys
 from src.controller.controlador import Controlador
 
 class BatallaNavalCLI:
-    """
-    Interfaz de línea de comandos para el juego Batalla Naval.
-
-    Esta clase proporciona una interfaz de texto para jugar al juego
-    Batalla Naval desde la línea de comandos.
-
-    Atributos:
-        controlador (Controlador): Instancia del controlador que gestiona la lógica del juego.
-
-    Métodos:
-        mostrar_menu(): Muestra el menú principal.
-        jugar_sin_registro(): Inicia una partida sin registro.
-        registrar_usuario(): Registra un nuevo usuario.
-        iniciar_sesion(): Inicia sesión con un usuario existente.
-        jugar(): Inicia una partida con el usuario actual.
-        limpiar_pantalla(): Limpia la pantalla de la consola.
-
-    Hola Jona: Esta clase implementa una interfaz de línea de comandos para
-    el juego Batalla Naval. Proporciona métodos para mostrar menús, registrar
-    usuarios, iniciar sesión y jugar partidas, todo desde la consola.
-    """
-
     def __init__(self):
-        """
-        Inicializa la interfaz de línea de comandos.
-
-        Hola Jona: Aquí inicializamos la interfaz de línea de comandos.
-        Creamos una instancia del controlador que gestionará toda la lógica
-        del juego.
-        """
         self.controlador = Controlador()
 
     def limpiar_pantalla(self):
-        """
-        Limpia la pantalla de la consola.
-
-        Hola Jona: Este método limpia la pantalla de la consola para mejorar
-        la legibilidad. Detecta el sistema operativo y ejecuta el comando
-        adecuado (cls para Windows, clear para Unix/Linux/MacOS).
-        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def mostrar_menu(self):
-        """
-        Muestra el menú principal y procesa la opción seleccionada.
-
-        Hola Jona: Este método muestra el menú principal con las opciones
-        disponibles y procesa la opción seleccionada por el usuario.
-        """
         while True:
             self.limpiar_pantalla()
             print("=" * 40)
@@ -90,12 +39,6 @@ class BatallaNavalCLI:
                 input("Opción inválida. Presione Enter para continuar...")
 
     def registrar_usuario(self):
-        """
-        Registra un nuevo usuario.
-
-        Hola Jona: Este método solicita al usuario un nombre de usuario y
-        una contraseña, y los utiliza para registrar un nuevo usuario en el sistema.
-        """
         self.limpiar_pantalla()
         print("=" * 40)
         print("       REGISTRO DE USUARIO")
@@ -114,13 +57,6 @@ class BatallaNavalCLI:
             input("Error al registrar usuario. El nombre de usuario ya existe o es inválido. Presione Enter para continuar...")
 
     def iniciar_sesion(self):
-        """
-        Inicia sesión con un usuario existente.
-
-        Hola Jona: Este método solicita al usuario sus credenciales y las utiliza
-        para iniciar sesión en el sistema. Si las credenciales son correctas,
-        inicia una partida con ese usuario.
-        """
         self.limpiar_pantalla()
         print("=" * 40)
         print("       INICIAR SESIÓN")
@@ -140,24 +76,16 @@ class BatallaNavalCLI:
             input("Credenciales incorrectas. Presione Enter para continuar...")
 
     def mostrar_puntuaciones(self):
-        """
-        Muestra las mejores puntuaciones.
-
-        Hola Jona: Este método muestra una tabla con las mejores puntuaciones
-        almacenadas en la base de datos, ordenadas de mayor a menor.
-        """
         self.limpiar_pantalla()
         print("=" * 40)
         print("       MEJORES PUNTUACIONES")
         print("=" * 40)
 
-        # Obtener puntuaciones del controlador
         puntuaciones = self.controlador.obtener_puntuaciones()
 
         if not puntuaciones:
             print("\nNo hay puntuaciones registradas.")
         else:
-            # Mostrar tabla de puntuaciones
             print("\nPosición  |  Jugador  |  Puntos")
             print("-" * 40)
 
@@ -168,18 +96,11 @@ class BatallaNavalCLI:
         input("\nPresione Enter para volver al menú principal...")
 
     def jugar_sin_registro(self):
-        """
-        Inicia una partida sin registro.
-
-        Hola Jona: Este método inicia una partida sin necesidad de registrarse
-        o iniciar sesión. Simplemente configura un juego con valores predeterminados.
-        """
         self.limpiar_pantalla()
         print("=" * 40)
         print("       JUGAR SIN REGISTRO")
         print("=" * 40)
 
-        # Configurar juego con valores predeterminados
         ancho = 10
         alto = 10
         num_naves = 5
@@ -187,19 +108,10 @@ class BatallaNavalCLI:
         print(f"Configuración: Tablero de {ancho}x{alto} con {num_naves} naves")
         input("Presione Enter para comenzar...")
 
-        # Iniciar juego
         self.controlador.iniciar_juego(ancho, alto, num_naves)
         self.jugar()
 
     def jugar(self):
-        """
-        Inicia una partida con la configuración actual.
-
-        Hola Jona: Este método implementa el bucle principal del juego.
-        Muestra el tablero, solicita coordenadas para disparar y actualiza
-        el estado del juego hasta que termine la partida.
-        """
-        # Si no hay un juego activo, configurar uno
         if not self.controlador.juego:
             self.limpiar_pantalla()
             print("=" * 40)
@@ -211,7 +123,6 @@ class BatallaNavalCLI:
                 alto = int(input("Alto del tablero (2-20, predeterminado 10): ") or "10")
                 num_naves = int(input("Número de naves (1-100, predeterminado 5): ") or "5")
 
-                # Validar rangos
                 if ancho < 2 or ancho > 20:
                     ancho = 10
                 if alto < 2 or alto > 20:
@@ -219,34 +130,28 @@ class BatallaNavalCLI:
                 if num_naves < 1 or num_naves > ancho * alto:
                     num_naves = min(5, ancho * alto // 2)
 
-                # Iniciar juego
                 self.controlador.iniciar_juego(ancho, alto, num_naves)
             except ValueError:
                 input("Entrada inválida. Se usarán valores predeterminados. Presione Enter para continuar...")
                 self.controlador.iniciar_juego(10, 10, 5)
 
-        # Bucle principal del juego
         while not self.controlador.juego_terminado():
             self.limpiar_pantalla()
             print("=" * 40)
             print("       BATALLA NAVAL")
             print("=" * 40)
 
-            # Mostrar información del jugador
             if self.controlador.jugador_activo:
                 print(f"Jugador: {self.controlador.jugador_activo.nombre_usuario}")
                 print(f"Puntaje: {self.controlador.jugador_activo.puntaje}")
 
-            # Mostrar tablero
             print("\nTablero:")
             print(self.controlador.obtener_representacion_tablero())
 
-            # Solicitar coordenadas
             try:
                 fila = int(input("Fila: "))
                 columna = int(input("Columna: "))
 
-                # Realizar disparo
                 impacto = self.controlador.realizar_disparo(fila, columna)
 
                 if impacto:
@@ -261,7 +166,6 @@ class BatallaNavalCLI:
             except Exception as e:
                 input(f"Error: {str(e)}. Presione Enter para continuar...")
 
-        # Juego terminado
         self.limpiar_pantalla()
         print("=" * 40)
         print("       ¡JUEGO TERMINADO!")
@@ -275,14 +179,6 @@ class BatallaNavalCLI:
 
         input("\nPresione Enter para volver al menú principal...")
 
-# Punto de entrada principal
 if __name__ == "__main__":
-    """
-    Punto de entrada principal del programa CLI.
-
-    Hola Jona: Esta condición verifica si este archivo se está ejecutando
-    directamente (no importado como módulo). Si es así, creamos una instancia
-    de la interfaz de línea de comandos y mostramos el menú principal.
-    """
     cli = BatallaNavalCLI()
     cli.mostrar_menu()

@@ -1,47 +1,36 @@
-"""
-Archivo principal del juego Batalla Naval simplificado.
-
-Este archivo inicia la aplicación Kivy y configura las pantallas del juego.
-
-"""
-
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
-from src.view.menu_screen import MenuScreen
-from src.view.juego_screen import JuegoScreen
-from src.view.registro_screen import RegistroScreen
-from src.view.login_screen import LoginScreen
-from src.view.puntuaciones_screen import PuntuacionesScreen
+from src.view.menu import MenuScreen
+from src.view.juego import JuegoScreen
+from src.view.registro import RegistroScreen
+from src.view.login import LoginScreen
+from src.view.puntuaciones import PuntuacionesScreen
+from src.controller.controlador import Controlador
 
 class BatallaNavalApp(App):
-    """
-    Aplicación principal del juego Batalla Naval.
-
-    Esta clase configura la aplicación Kivy y crea las pantallas del juego.
-
-    Hola Jona: Esta es la clase principal de la aplicación. Hereda de App,
-    que es la clase base para todas las aplicaciones Kivy. El método build()
-    se llama cuando se inicia la aplicación y debe retornar el widget raíz
-    de la aplicación. En nuestro caso, creamos un ScreenManager que gestiona
-    las diferentes pantallas del juego.
-    """
-
     def build(self):
-        """
-        Construye la interfaz de la aplicación.
+        controlador = Controlador()
 
-        Returns:
-            ScreenManager: Gestor de pantallas con las pantallas del juego.
-        """
-        # Crear el gestor de pantallas
         sm = ScreenManager()
 
-        # Añadir las pantallas
         sm.add_widget(MenuScreen(name="menu"))
-        sm.add_widget(JuegoScreen(name="juego"))
-        sm.add_widget(RegistroScreen(name="registro"))
-        sm.add_widget(LoginScreen(name="login"))
-        sm.add_widget(PuntuacionesScreen(name="puntuaciones"))
+
+        juego_screen = JuegoScreen(name="juego")
+        juego_screen.controlador = controlador
+
+        registro_screen = RegistroScreen(name="registro")
+        registro_screen.controlador = controlador
+
+        login_screen = LoginScreen(name="login")
+        login_screen.controlador = controlador
+
+        puntuaciones_screen = PuntuacionesScreen(name="puntuaciones")
+        puntuaciones_screen.controlador = controlador
+
+        sm.add_widget(juego_screen)
+        sm.add_widget(registro_screen)
+        sm.add_widget(login_screen)
+        sm.add_widget(puntuaciones_screen)
 
         return sm
 

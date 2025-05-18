@@ -1,43 +1,30 @@
-# Archivo KV para la pantalla de juego
-# Autor: Juan David
-
-# Hola Jona: Este archivo define la interfaz gráfica de la pantalla de juego.
-# La pantalla está dividida en dos secciones principales:
-# - Panel izquierdo: Configuración y controles (ancho, alto, naves, disparos)
-# - Panel derecho: Tablero y estado del juego
-
 <JuegoScreen>:
     BoxLayout:
         orientation: "vertical"
         padding: 20
         spacing: 10
 
-        # Título del juego
         Label:
             text: "Juego de Batalla Naval"
             font_size: 24
             size_hint_y: 0.1
 
-        # Contenido principal (paneles izquierdo y derecho)
         BoxLayout:
             orientation: "horizontal"
             size_hint_y: 0.8
             spacing: 10
 
-            # Panel izquierdo: Configuración y controles
             BoxLayout:
                 orientation: "vertical"
                 size_hint_x: 0.4
                 spacing: 10
                 padding: 10
 
-                # Sección de configuración
                 Label:
                     text: "Configuración"
                     font_size: 18
                     size_hint_y: 0.1
 
-                # Campos para configurar el tablero
                 GridLayout:
                     cols: 2
                     spacing: 5
@@ -67,19 +54,16 @@
                         multiline: False
                         input_filter: "int"
 
-                # Botón para iniciar el juego
                 Button:
                     text: "Iniciar Juego"
                     size_hint_y: 0.1
                     on_release: root.iniciar_juego()
 
-                # Sección de disparos
                 Label:
                     text: "Disparar"
                     font_size: 18
                     size_hint_y: 0.1
 
-                # Campos para realizar disparos
                 GridLayout:
                     cols: 2
                     spacing: 5
@@ -101,7 +85,6 @@
                         multiline: False
                         input_filter: "int"
 
-                # Botones de acción
                 Button:
                     text: "Realizar Disparo"
                     size_hint_y: 0.1
@@ -117,20 +100,17 @@
                     size_hint_y: 0.1
                     on_release: root.volver()
 
-            # Panel derecho: Tablero y estado
             BoxLayout:
                 orientation: "vertical"
                 size_hint_x: 0.6
                 spacing: 10
                 padding: 10
 
-                # Título del tablero
                 Label:
                     text: "Tablero de Juego"
                     font_size: 18
                     size_hint_y: 0.1
 
-                # Visualización del tablero
                 Label:
                     text: root.tablero_texto
                     size_hint_y: 0.6
@@ -138,21 +118,18 @@
                     halign: 'left'
                     valign: 'top'
                     font_size: 14
-                    font_name: 'RobotoMono-Regular'  # Fuente monoespaciada para alinear el tablero
+                    font_name: 'RobotoMono-Regular'
 
-                # Estado del juego
                 Label:
                     text: root.estado_juego
                     size_hint_y: 0.1
                     font_size: 14
 
-                # Mensajes para el usuario
                 Label:
                     text: root.mensaje
                     size_hint_y: 0.1
                     font_size: 14
 
-        # Botón para volver al menú (parte inferior)
         Button:
             text: "Volver al Menú"
             size_hint_y: 0.1
