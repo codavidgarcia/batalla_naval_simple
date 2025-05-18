@@ -9,7 +9,11 @@ Un juego de Batalla Naval implementado en Python con Kivy y PostgreSQL.
 - pgAdmin 4
 - Dependencias de Python (ver `requirements.txt`)
 
-## Configuración de la Base de Datos PostgreSQL
+## Almacenamiento de Datos
+
+El juego soporta dos modos de almacenamiento:
+
+### Opción 1: PostgreSQL (Recomendado para Desarrollo)
 
 1. Instalar PostgreSQL y pgAdmin 4:
    - En sistemas basados en Debian/Ubuntu: `sudo apt install postgresql postgresql-contrib`
@@ -41,6 +45,15 @@ Y luego:
 PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sql/postgres_schema.sql
 PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sql/postgres_data.sql
 ```
+
+### Opción 2: JSON (Fallback Automático)
+
+Si PostgreSQL no está disponible o no se puede conectar, el juego usará automáticamente archivos JSON como almacenamiento:
+
+- `datos/jugadores.json`: Almacena información de los jugadores
+- `datos/puntuaciones.json`: Almacena las puntuaciones de los jugadores
+
+No se requiere configuración adicional para usar el modo JSON, ya que se activa automáticamente como fallback.
 
 ## Uso de pgAdmin 4 con la Base de Datos
 

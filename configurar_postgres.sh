@@ -31,7 +31,7 @@ PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sq
 PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sql/postgres_data.sql
 
 echo "Configuración completada."
-echo "Ahora puedes usar pgAdmin 4 para conectarte a la base de datos:"
+echo "Listo pgAdmin 4 para conectarse a la base de datos:"
 echo "  - Host: localhost"
 echo "  - Puerto: 5432"
 echo "  - Base de datos: batalla_naval"

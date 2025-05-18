@@ -16,7 +16,7 @@ class Controlador:
         jugador = self.sistema_usuario.iniciar_sesion(nombre, contraseña)
         if jugador:
             self.jugador_activo = jugador
-            self.puntuaciones = Puntuaciones(jugador, self.sistema_usuario.session)
+            self.puntuaciones = Puntuaciones(jugador, self.sistema_usuario.session, self.sistema_usuario)
             return True
         return False
 
@@ -37,6 +37,8 @@ class Controlador:
     def obtener_puntuaciones(self, limite=10):
         if self.puntuaciones:
             return self.puntuaciones.mostrar_puntuaciones(limite)
+        elif self.sistema_usuario:
+            return self.sistema_usuario.obtener_puntuaciones(limite)
         return []
 
     def obtener_representacion_tablero(self):
