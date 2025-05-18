@@ -2,7 +2,6 @@ from src.model.jugador import Jugador
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-import os
 from datetime import datetime
 
 Base = declarative_base()
@@ -38,9 +37,8 @@ class SistemaUsuario:
 
         try:
             print("Inicializando la base de datos...")
-            db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'datos', 'batalla_naval.db')
-            os.makedirs(os.path.dirname(db_path), exist_ok=True)
-            self.engine = create_engine(f'sqlite:///{db_path}')
+            # Conexión a PostgreSQL
+            self.engine = create_engine('postgresql://batalla_naval:password123@localhost/batalla_naval')
 
             Base.metadata.create_all(self.engine)
 
