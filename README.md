@@ -39,7 +39,7 @@ CREATE USER batalla_naval WITH PASSWORD 'password123';
 CREATE DATABASE batalla_naval OWNER batalla_naval;
 ```
 
-Y luego:
+Y luego ejecutar los scripts SQL:
 
 ```bash
 PGPASSWORD=password123 psql -h localhost -U batalla_naval -d batalla_naval -f sql/postgres_schema.sql
