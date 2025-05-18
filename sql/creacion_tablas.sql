@@ -1,5 +1,3 @@
--- Esquema para PostgreSQL
-
 -- Tabla de jugadores
 CREATE TABLE jugador (
     id_jugador SERIAL PRIMARY KEY,

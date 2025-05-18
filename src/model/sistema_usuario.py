@@ -40,7 +40,6 @@ class SistemaUsuario:
 
         try:
             print("Intentando inicializar PostgreSQL...")
-            # Conexión a PostgreSQL
             self.engine = create_engine('postgresql://batalla_naval:password123@localhost/batalla_naval')
 
             Base.metadata.create_all(self.engine)
@@ -88,7 +87,6 @@ class SistemaUsuario:
             if jugador.nombre_usuario == nombre:
                 return False
 
-        # Si PostgreSQL está disponible, usarlo
         if self.db_ok:
             try:
                 jugador_existente = self.session.query(JugadorDB).filter_by(nombre_usuario=nombre).first()
@@ -111,11 +109,9 @@ class SistemaUsuario:
                 traceback.print_exc()
                 self.session.rollback()
 
-                # Si falla PostgreSQL, intentar con JSON
                 print("Intentando registrar jugador con JSON (fallback)...")
                 return self._registrar_jugador_json(nombre, contraseña)
         else:
-            # Usar JSON como fallback
             return self._registrar_jugador_json(nombre, contraseña)
 
     def _registrar_jugador_json(self, nombre, contraseña):
@@ -131,7 +127,6 @@ class SistemaUsuario:
             return False
 
     def iniciar_sesion(self, nombre, contraseña):
-        # Si PostgreSQL está disponible, usarlo
         if self.db_ok:
             try:
                 jugador_db = self.session.query(JugadorDB).filter_by(
@@ -161,11 +156,9 @@ class SistemaUsuario:
                 import traceback
                 traceback.print_exc()
 
-                # Si falla PostgreSQL, intentar con JSON
                 print("Intentando iniciar sesión con JSON (fallback)...")
                 return self._iniciar_sesion_json(nombre, contraseña)
         else:
-            # Usar JSON como fallback
             return self._iniciar_sesion_json(nombre, contraseña)
 
     def _iniciar_sesion_json(self, nombre, contraseña):
@@ -194,10 +187,8 @@ class SistemaUsuario:
 
     def obtener_puntuaciones(self, limite=10):
         """Obtiene las puntuaciones más altas de los jugadores."""
-        # Si PostgreSQL está disponible, usarlo
         if self.db_ok:
             try:
-                # Consulta para obtener las puntuaciones más altas
                 puntuaciones = self.session.query(
                     JugadorDB.nombre_usuario,
                     PuntuacionDB.puntos,
@@ -208,7 +199,6 @@ class SistemaUsuario:
                     PuntuacionDB.puntos.desc()
                 ).limit(limite).all()
 
-                # Formatear resultados
                 resultado = []
                 for p in puntuaciones:
                     resultado.append({
@@ -223,11 +213,9 @@ class SistemaUsuario:
                 import traceback
                 traceback.print_exc()
 
-                # Si falla PostgreSQL, intentar con JSON
                 print("Intentando obtener puntuaciones con JSON (fallback)...")
                 return self._obtener_puntuaciones_json(limite)
         else:
-            # Usar JSON como fallback
             return self._obtener_puntuaciones_json(limite)
 
     def _obtener_puntuaciones_json(self, limite=10):
@@ -244,27 +232,22 @@ class SistemaUsuario:
             print("No se puede actualizar la puntuación: jugador no válido o sin ID")
             return None
 
-        # Si PostgreSQL está disponible, usarlo
         if self.db_ok:
             try:
-                # Crear nueva puntuación
                 nueva_puntuacion = PuntuacionDB(id_jugador=jugador.id, puntos=puntos)
                 self.session.add(nueva_puntuacion)
                 self.session.commit()
                 print(f"Puntuación {puntos} registrada para {jugador.nombre_usuario} en PostgreSQL")
 
-                # Actualizar el objeto jugador
                 jugador.puntaje = puntos
                 return puntos
             except Exception as e:
                 print(f"Error al actualizar puntuación en PostgreSQL: {str(e)}")
                 self.session.rollback()
 
-                # Si falla PostgreSQL, intentar con JSON
                 print("Intentando actualizar puntuación con JSON (fallback)...")
                 return self._actualizar_puntuacion_json(jugador, puntos)
         else:
-            # Usar JSON como fallback
             return self._actualizar_puntuacion_json(jugador, puntos)
 
     def _actualizar_puntuacion_json(self, jugador, puntos):

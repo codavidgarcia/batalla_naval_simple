@@ -4,7 +4,6 @@ class Puntuaciones:
         self.session = session
         self.sistema_usuario = sistema_usuario
 
-        # Si no se proporciona sistema_usuario, intentar importarlo
         if not self.sistema_usuario and self.session:
             try:
                 from src.controller.controlador import Controlador
@@ -16,13 +15,10 @@ class Puntuaciones:
         if not self.jugador:
             return None
 
-        # Actualizar el puntaje del jugador
         nuevo_puntaje = self.jugador.actualizar_puntaje(puntos)
 
-        # Si tenemos sistema_usuario, usar su método
         if self.sistema_usuario:
             return self.sistema_usuario.actualizar_puntuacion(self.jugador, puntos)
-        # Si tenemos session pero no sistema_usuario, usar el método antiguo
         elif self.session:
             try:
                 from src.model.sistema_usuario import JugadorDB, PuntuacionDB
@@ -50,10 +46,8 @@ class Puntuaciones:
         return nuevo_puntaje
 
     def mostrar_puntuaciones(self, limite=10):
-        # Si tenemos sistema_usuario, usar su método
         if self.sistema_usuario:
             return self.sistema_usuario.obtener_puntuaciones(limite)
-        # Si tenemos session pero no sistema_usuario, usar el método antiguo
         elif self.session:
             try:
                 from src.model.sistema_usuario import PuntuacionDB, JugadorDB
@@ -79,5 +73,4 @@ class Puntuaciones:
                 import traceback
                 traceback.print_exc()
 
-        # Si no hay sistema_usuario ni session, devolver lista vacía
         return []
